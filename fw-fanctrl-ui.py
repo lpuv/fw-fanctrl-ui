@@ -46,6 +46,7 @@ def resume(icon: Icon, item: MenuItem):
 
 
 def quit():
+  global isRunning, checkAliveThread
   isRunning = False
   Thread.join(checkAliveThread)
   icon.stop()
@@ -92,7 +93,8 @@ images = {
 }
 icon = pystray.Icon("name", images["default"], program_name, Menu(generate_main_menu))
 
-checkAliveThread = Thread(target=check_alive, name="CheckAliveThread").start()
+checkAliveThread = Thread(target=check_alive, name="CheckAliveThread")
+checkAliveThread.start()
 
 
 def setup(icon: Icon):
